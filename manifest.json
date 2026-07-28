@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "seeds": {
+    "fear_greed": {
+      "symbols": {
+        "fear-greed": {
+          "type": "csv",
+          "description": "Fear Greed Index Data"
+        }
+      }
+    }
+  }
+}
