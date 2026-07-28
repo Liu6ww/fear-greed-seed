@@ -1,5 +1,8 @@
 name: Sync Fear Greed Data
 
+permissions:
+  contents: write   # 必须：允许 Actions 推送文件
+
 on:
   schedule:
     - cron: "0 0 * * *"   # 每天 00:00 自动执行
@@ -11,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout your repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download CSV from source repo
         run: |
@@ -22,6 +25,5 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add seeds/fear_greed/fear-greed.csv
-          git commit -m "Auto update fear-greed.csv"
+          git commit -m "Auto update fear-greed.csv" || echo "No changes to commit"
           git push
-
