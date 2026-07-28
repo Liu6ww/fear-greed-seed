@@ -1,1 +1,27 @@
+name: Sync Fear Greed Data
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # 每天 00:00 自动执行
+  workflow_dispatch:       # 手动执行
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your repo
+        uses: actions/checkout@v3
+
+      - name: Download CSV from source repo
+        run: |
+          curl -L https://raw.githubusercontent.com/whit3rabbit/fear-greed-data/main/fear-greed.csv -o seeds/fear_greed/fear-greed.csv
+
+      - name: Commit & Push
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add seeds/fear_greed/fear-greed.csv
+          git commit -m "Auto update fear-greed.csv"
+          git push
 
